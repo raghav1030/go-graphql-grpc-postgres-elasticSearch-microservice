@@ -2,13 +2,15 @@ package main
 
 import (
 	"github.com/99designs/gqlgen/graphql"
-	account "github.com/raghav1030/go-graphql-grpc-postgres-elasticSearch-microservice/accounts"
+	account "github.com/raghav1030/go-graphql-grpc-postgres-elasticSearch-microservice/account"
+	"github.com/raghav1030/go-graphql-grpc-postgres-elasticSearch-microservice/catalog"
+	"github.com/raghav1030/go-graphql-grpc-postgres-elasticSearch-microservice/order"
 )
 
 type Server struct {
-		accountClient *account.Client
-		orderClient *order.Client
-		catalogClient *catalog.Client
+	accountClient account.Client
+	orderClient   order.Client
+	catalogClient catalog.Client
 }
 
 func NewGraphQLServer(accountUrl string, productUrl string, orderUrl string) (*Server, err) {
@@ -31,9 +33,9 @@ func NewGraphQLServer(accountUrl string, productUrl string, orderUrl string) (*S
 	}
 
 	return &Server{
-		accountClient,
-		catalogClient,
-		orderClient,
+		*accountClient,
+		*orderClient,
+		*catalogClient,
 	}, nil
 
 }
