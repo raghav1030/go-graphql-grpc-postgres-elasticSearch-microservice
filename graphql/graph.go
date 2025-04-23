@@ -13,7 +13,7 @@ type Server struct {
 	catalogClient catalog.Client
 }
 
-func NewGraphQLServer(accountUrl string, productUrl string, orderUrl string) (*Server, err) {
+func NewGraphQLServer(accountUrl string, productUrl string, orderUrl string) (*Server, error) {
 	accountClient, err := account.NewClient(accountUrl)
 	if err != nil {
 		return nil, err
@@ -40,19 +40,25 @@ func NewGraphQLServer(accountUrl string, productUrl string, orderUrl string) (*S
 
 }
 
-func (s *Server) Mutation() {
+func (s *Server) Mutation() MutationResolver {
 	return &mutationResolver{
 		server: s,
 	}
 }
 
-func (s *Server) Query() {
+func (s *Server) Query() QueryResolver {
 	return &queryResolver{
 		server: s,
 	}
 }
 
-func (s *Server) AccountResolver() {
+func (s *Server) AccountResolver() AccountResolver {
+	return &accountResolver{
+		server: s,
+	}
+}
+
+func (s *Server) Account() AccountResolver {
 	return &accountResolver{
 		server: s,
 	}

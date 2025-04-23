@@ -3,7 +3,7 @@ package account
 import (
 	"context"
 
-	pb "github.com/raghav1030/go-graphql-grpc-postgres-elasticSearch-microservice/accounts/pb"
+	pb "github.com/raghav1030/go-graphql-grpc-postgres-elasticSearch-microservice/account/pb"
 	"google.golang.org/grpc"
 )
 
@@ -25,9 +25,9 @@ func (c *Client) Close() {
 	c.conn.Close()
 }
 
-func (c *Client) PostAccount(ctx context.Context, a Account) (*Account, error) {
+func (c *Client) PostAccount(ctx context.Context, name string) (*Account, error) {
 	r, err := c.service.PostAccount(ctx, &pb.PostAccountRequest{
-		Name: a.Name,
+		Name: name,
 	})
 
 	if err != nil {

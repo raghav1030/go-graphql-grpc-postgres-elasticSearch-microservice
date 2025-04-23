@@ -52,7 +52,7 @@ func (r queryResolver) Accounts(ctx context.Context, pagination *PaginationInput
 	return accounts, nil
 }
 
-func (r queryResolver) Products(ctx context.Context, pagination *PaginationInput, id *string, query string) ([]*Product, error) {
+func (r queryResolver) Products(ctx context.Context, pagination *PaginationInput, id *string, query *string) ([]*Product, error) {
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 
@@ -76,10 +76,10 @@ func (r queryResolver) Products(ctx context.Context, pagination *PaginationInput
 		skip, take = pagination.bounds()
 	}
 	q := ""
-	if query != "" {
-		q = query
+	if query != nil {
+		q = *query
 	}
-	productList, err := r.server.catalogClient.GetProducts(ctx, skip, take, q)
+	productList, err := r.server.catalogClient.GetProducts(ctx, skip, take, nil, q)
 
 	if err != nil {
 		log.Fatal(err)

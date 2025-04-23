@@ -21,8 +21,11 @@ type Order {
 }
 
 type OrderedProduct {
-  product: [Product!]!
-  quantity: Float!
+  id: String!
+  name: String!
+  description: String!
+  price: Float!
+  quantity: Int!
 }
 
 input PaginationInput {
@@ -45,8 +48,8 @@ input OrderProductInput {
 }
 
 input OrderInput {
-  id: String!
-  products: [ProductInput!]!
+  accountId: String!
+  products: [OrderProductInput!]!
 }
 
 type Mutation {

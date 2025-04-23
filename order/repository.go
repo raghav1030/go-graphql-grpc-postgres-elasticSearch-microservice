@@ -109,13 +109,14 @@ func (r *postgresRepository) GetOrdersForAccount(ctx context.Context, accountId 
 
 	defer rows.Close()
 
-	orders := []*Order{}
+	orders := []Order{}
+	order := &Order{}
 	lastOrder := &Order{}
-	orderedProducts := &OrderedProduct{}
+	orderedProduct := &OrderedProduct{}
 	products := []OrderedProduct{}
 
 	for rows.Next() {
-		if err = rows.Scan(
+		if err := rows.Scan(
 			&order.Id,
 			&order.CreatedAt,
 			&order.TotalPrice,
@@ -141,8 +142,8 @@ func (r *postgresRepository) GetOrdersForAccount(ctx context.Context, accountId 
 		}
 
 		products = append(products, OrderedProduct{
-			Id:       orderedProducts.Id,
-			Quantity: orderedProducts.Quantity,
+			Id:       orderedProduct.Id,
+			Quantity: orderedProduct.Quantity,
 		})
 		*lastOrder = *order
 	}

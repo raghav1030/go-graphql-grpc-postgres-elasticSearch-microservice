@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net"
 
-	pb "github.com/raghav1030/go-graphql-grpc-postgres-elasticSearch-microservice/accounts/pb"
+	pb "github.com/raghav1030/go-graphql-grpc-postgres-elasticSearch-microservice/account/pb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
